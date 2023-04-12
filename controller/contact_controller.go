@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"prakerja_kg/config"
 	"prakerja_kg/model"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -44,8 +45,8 @@ func GetContacts(c echo.Context) error {
 func GetContactById(c echo.Context) error {
 	var contacts []model.Contact
 
-	// id := c.Param("id")
-	res := config.DB.Find(&contacts)
+	id, _ := strconv.Atoi(c.Param("id"))
+	res := config.DB.First(&contacts, id)
 
 	if res.Error != nil {
 		return c.JSON(http.StatusInternalServerError, model.Response{
