@@ -22,5 +22,28 @@ func InitDB() {
 }
 
 func migration() {
+	var user model.User
+	var category1 model.Category
+	var category2 model.Category
+
+	DB.AutoMigrate(&model.User{})
+	DB.First(&user, 1)
+	if user.Name == "" {
+		user1 := model.User{Id: 1, Name: "Kukuh Gumilang", Username: "kg", Password: "secretkey-kg"}
+		DB.Create(&user1)
+	}
+
+	DB.AutoMigrate(&model.Category{})
+	DB.First(&category1, 1)
+	if category1.Name == "" {
+		category1 := model.Category{Id: 1, Name: "Pemadam Kebakaran"}
+		DB.Create(&category1)
+	}
+	DB.First(&category2, 2)
+	if category2.Name == "" {
+		category2 := model.Category{Id: 2, Name: "Ambulance"}
+		DB.Create(&category2)
+	}
+
 	DB.AutoMigrate(&model.Contact{})
 }
