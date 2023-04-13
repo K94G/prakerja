@@ -18,7 +18,7 @@
 <hr>
 <div align="center">
   <a href="https://leveldigital.id">
-    <img src="https://leveldigital.id/img/favicon.ico" width="64" height="64">
+    <img src="https://leveldigital.id/img/favicon.ico" width="32" height="32">
     <br>
     Level Digital Indonesia
   </a>
