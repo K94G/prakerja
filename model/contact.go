@@ -19,8 +19,8 @@ type Contact struct {
 	CategoryId    uint      `json:"category_id"`
 	Category      Category  `json:"category"`
 	Active        bool      `json:"active"`
-	CreatedAt     time.Time `json:"created_at" gorm:"default:CURRENT_TIMESTAMP();"`
-	UpdatedAt     time.Time `json:"-" gorm:"default:CURRENT_TIMESTAMP();"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"-"`
 }
 
 func TimeLocalJakarta() time.Time {
