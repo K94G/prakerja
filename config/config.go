@@ -11,13 +11,13 @@ var DB *gorm.DB
 
 func InitDB() {
 	// local
-	dsn := "root:kgxampp@tcp(127.0.0.1:3306)/emergency_app?charset=utf8mb4&parseTime=True&loc=Local"
+	// dsn := "root:kgxampp@tcp(127.0.0.1:3306)/emergency_app?charset=utf8mb4&parseTime=True&loc=Local"
 
 	// kgilang
 	// dsn := "root:mfTcjoxxcAZkOtPHIiFy@tcp(containers-us-west-198.railway.app:6659)/railway?charset=utf8mb4&parseTime=True&loc=Local"
 
 	// k94g
-	// dsn := "root:aTeYT6l8CC8PM7oh2S1R@tcp(containers-us-west-10.railway.app:5680)/railway?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:a17jzirKsAvluV2TSvqK@tcp(containers-us-west-40.railway.app:6186)/railway?charset=utf8mb4&parseTime=True&loc=Local"
 
 	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
