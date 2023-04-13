@@ -5,9 +5,22 @@ import (
 	"prakerja_kg/config"
 	"prakerja_kg/model"
 	"strconv"
+	"time"
 
 	"github.com/labstack/echo/v4"
 )
+
+func TimeLocalJakarta() time.Time {
+	now := time.Now().UTC()
+	loc, err := time.LoadLocation("Asia/Jakarta")
+	if err != nil {
+		now = time.Now()
+	} else {
+		now = now.In(loc)
+	}
+
+	return now
+}
 
 func CreateContact(c echo.Context) error {
 	validate := validateJwt(c)
@@ -20,6 +33,8 @@ func CreateContact(c echo.Context) error {
 	var contact model.Contact
 	c.Bind(&contact)
 
+	contact.CreatedAt = TimeLocalJakarta()
+
 	res := config.DB.Create(&contact)
 
 	if res.Error != nil {
@@ -27,6 +42,8 @@ func CreateContact(c echo.Context) error {
 			Message: "create failed", Data: nil,
 		})
 	}
+
+	config.DB.Preload("Category").First(&contact)
 
 	return c.JSON(http.StatusOK, model.Response{
 		Message: "create success", Data: contact,
@@ -43,7 +60,7 @@ func GetContacts(c echo.Context) error {
 
 	var contacts []model.Contact
 
-	res := config.DB.Find(&contacts)
+	res := config.DB.Preload("Category").Find(&contacts)
 
 	if res.Error != nil {
 		return c.JSON(http.StatusInternalServerError, model.Response{
@@ -67,7 +84,7 @@ func GetContactById(c echo.Context) error {
 	var contact model.Contact
 
 	id, _ := strconv.Atoi(c.Param("id"))
-	res := config.DB.First(&contact, id)
+	res := config.DB.Preload("Category").First(&contact, id)
 
 	if res.Error != nil {
 		return c.JSON(http.StatusInternalServerError, model.Response{
@@ -102,6 +119,8 @@ func UpdateContactById(c echo.Context) error {
 		})
 	}
 
+	config.DB.First(&contact)
+
 	contact.Name = body.Name
 	contact.Phone = body.Phone
 	contact.Email = body.Email
@@ -112,6 +131,7 @@ func UpdateContactById(c echo.Context) error {
 	contact.GoogleMapsUrl = body.GoogleMapsUrl
 	contact.Category = body.Category
 	contact.Active = body.Active
+	contact.UpdatedAt = TimeLocalJakarta()
 
 	config.DB.Save(&contact)
 
@@ -120,6 +140,8 @@ func UpdateContactById(c echo.Context) error {
 			Message: "update failed", Data: nil,
 		})
 	}
+
+	config.DB.Preload("Category").First(&contact)
 
 	return c.JSON(http.StatusOK, model.Response{
 		Message: "update success", Data: contact,
@@ -146,6 +168,7 @@ func DeactivateContactById(c echo.Context) error {
 	}
 
 	contact.Active = false
+	contact.UpdatedAt = TimeLocalJakarta()
 
 	config.DB.Save(&contact)
 
@@ -154,6 +177,8 @@ func DeactivateContactById(c echo.Context) error {
 			Message: "deactivate failed", Data: nil,
 		})
 	}
+
+	config.DB.Preload("Category").First(&contact)
 
 	return c.JSON(http.StatusOK, model.Response{
 		Message: "deactivate success", Data: contact,
