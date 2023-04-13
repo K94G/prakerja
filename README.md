@@ -1,4 +1,4 @@
-<div align="center"><h1>KUKUH GUMILANG</h1></div>
+<h1 align="center">KUKUH GUMILANG</h1>
 
 <div align="center">
   <a href="https://www.youtube.com/@kgilang">
@@ -18,7 +18,7 @@
 <hr>
 <div align="center">
   <a href="https://leveldigital.id">
-    <img src="https://leveldigital.id/img/favicon.ico">
+    <img src="https://leveldigital.id/img/favicon.ico" width="64" height="64">
     <br>
     Level Digital Indonesia
   </a>
