@@ -2,12 +2,15 @@ package route
 
 import (
 	"prakerja_kg/controller"
+	"prakerja_kg/docs"
 
 	"github.com/labstack/echo/v4"
 )
 
 func InitRoute() *echo.Echo {
 	e := echo.New()
+
+	docs.Initialize(e)
 
 	e.POST("/contacts", controller.CreateContact)
 	e.GET("/contacts", controller.GetContacts)
