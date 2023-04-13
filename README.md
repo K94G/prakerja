@@ -4,3 +4,7 @@
   <br>
   Level Digital Indonesia
 </a>
+<a href="https://leveldigital.id">
+  <img src="https://www.youtube.com/s/desktop/932eb6a8/img/favicon.ico">
+  kgilang
+</a>
